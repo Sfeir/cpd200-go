@@ -10,7 +10,7 @@ conference.go -- server-side Go App Engine API;
 import (
 	"log"
 	"github.com/GoogleCloudPlatform/go-endpoints/endpoints"
-	"golang.org/x/net/context"
+	"net/http"
 )
 
 type ConferenceApi struct {
@@ -26,10 +26,11 @@ func copyProfileToForm(prof *Profile) (*ProfileForm, error) {
 	return pf, nil
 }
 
-func getProfileFromUser(c context.Context) (*Profile, error) {
+func getProfileFromUser(r *http.Request) (*Profile, error) {
 	//Return user Profile from datastore, creating new one if non-existent.
 	//TODO
 	//make sure user is authed
+	//c := endpoints.NewContext(r)
 	//user, err := endpoints.CurrentUser(c, []string{endpoints.EmailScope},
 	//	[]string{WEB_CLIENT_ID}, []string{WEB_CLIENT_ID})
 	//if err != nil {
@@ -50,10 +51,10 @@ func getProfileFromUser(c context.Context) (*Profile, error) {
 	return profile, nil
 }
 
-func doProfile(c context.Context, saveRequest *ProfileMiniForm) (*ProfileForm, error) {
+func doProfile(r *http.Request, saveRequest *ProfileMiniForm) (*ProfileForm, error) {
 	//Get user Profile and return to user, possibly updating it first.
 	//get user Profile
-	prof, err := getProfileFromUser(c)
+	prof, err := getProfileFromUser(r)
 	if err != nil {
 		return nil, err
 	}
@@ -61,20 +62,21 @@ func doProfile(c context.Context, saveRequest *ProfileMiniForm) (*ProfileForm, e
 	//if saveProfile(), process user-modifyable fields
 	if saveRequest != nil {
 		prof.TeeShirtSize = TeeShirtSizeToStringEnum(saveRequest.TeeShirtSize)
+		prof.DisplayName = saveRequest.DisplayName
 	}
 	
 	//return ProfileForm
 	return copyProfileToForm(prof)
 }
 
-func (h *ConferenceApi) GetProfile(c context.Context) (*ProfileForm, error) {
+func (h *ConferenceApi) GetProfile(r *http.Request) (*ProfileForm, error) {
 	//Return user profile.
-	return doProfile(c, nil)
+	return doProfile(r, nil)
 }
 
-func (h *ConferenceApi) SaveProfile(c context.Context) (*ProfileForm, error) {
+func (h *ConferenceApi) SaveProfile(r *http.Request) (*ProfileForm, error) {
 	//Update & return user profile.
-	return doProfile(c, nil)
+	return doProfile(r, nil)
 }
 
 func init() {
