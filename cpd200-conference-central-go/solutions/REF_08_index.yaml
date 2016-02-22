@@ -1,0 +1,86 @@
+indexes:
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: MaxAttendees
+  - name: Month
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: MaxAttendees
+  - name: Month
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: MaxAttendees
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: Month
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: Month
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: City
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: MaxAttendees
+  - name: Month
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: MaxAttendees
+  - name: Month
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: MaxAttendees
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: MaxAttendees
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: Month
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: Month
+  - name: Topics
+  - name: Name
+
+- kind: Conference
+  properties:
+  - name: Topics
+  - name: Name

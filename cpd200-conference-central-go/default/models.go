@@ -56,6 +56,23 @@ type ConferenceForm struct {
 	OrganizerDisplayName string `json:"organizerDisplayName"`
 }
 
+type ConferenceForms struct {
+	//ConferenceForms -- multiple Conference outbound form message
+	Items []ConferenceForm `json:"items"`
+}
+
+type ConferenceQueryForm struct {
+	//ConferenceQueryForm -- Conference query inbound form message
+	Field string `json:"field"`
+	Operator string `json:"operator"`
+	Value string `json:"value"`
+}
+
+type ConferenceQueryForms struct {
+	//ConferenceQueryForms -- multiple ConferenceQueryForm inbound form message
+	Filters []ConferenceQueryForm `json:"filters"`
+}
+
 type TeeShirtSize int
 
 const (
