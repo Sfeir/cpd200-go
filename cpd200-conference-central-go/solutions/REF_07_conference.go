@@ -31,7 +31,7 @@ var DEFAULTS = map[string]Object{
 	"topics": Object{Value:[2]string{"Default", "Topic"}},
 }
 
-func copyConferenceToForm(conf *Conference, key datastore.Key, displayName string) (*ConferenceForm, error) {
+func copyConferenceToForm(conf *Conference, keyStr string, displayName string) (*ConferenceForm, error) {
 	//Copy relevant fields from Conference to ConferenceForm.
 	cf := &ConferenceForm{
 		Name: conf.Name,
@@ -44,7 +44,7 @@ func copyConferenceToForm(conf *Conference, key datastore.Key, displayName strin
 		MaxAttendees: conf.MaxAttendees,
 		SeatsAvailable: conf.SeatsAvailable,
 		EndDate: conf.EndDate.String(),
-		WebsafeKey: html.EscapeString(key.String()),
+		WebsafeKey: html.EscapeString(keyStr),
 	}
 	if displayName != "" {
 		cf.OrganizerDisplayName = displayName
