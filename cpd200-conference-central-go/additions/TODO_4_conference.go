@@ -11,7 +11,7 @@ func (h *ConferenceApi) FilterPlayground(r *http.Request) (*ConferenceForms, err
 	//2: topics equals "Medical Innovations"
 
 	var conferences []Conference
-	_, err := q.GetAll(appCtx, &conferences)
+	keys, err := q.GetAll(appCtx, &conferences)
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +20,7 @@ func (h *ConferenceApi) FilterPlayground(r *http.Request) (*ConferenceForms, err
 		Items: make([]ConferenceForm, 0, len(conferences)),
 	}
 	for v := range conferences {
-		cf, _ := copyConferenceToForm(&conferences[v], conferences[v].Name, "")
+		cf, _ := copyConferenceToForm(&conferences[v], keys[v].Encode(), "")
 		forms.Items = append(forms.Items, *cf)
 	}
 	return forms, nil
