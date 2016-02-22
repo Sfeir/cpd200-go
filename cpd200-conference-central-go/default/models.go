@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 type Profile struct {
@@ -23,6 +24,36 @@ type ProfileForm struct {
 	DisplayName  string	`json:"displayName"`
 	MainEmail string	`json:"mainEmail"`
 	TeeShirtSize TeeShirtSize	`json:"teeShirtSize"`
+}
+
+type Conference struct {
+	//Conference -- Conference object
+	Name string `json:"name"`
+	Description string `json:"description"`
+	OrganizerUserId string `json:"organizerUserId"`
+	Topics []string `json:"topics"`
+	City string `json:"city"`
+	StartDate time.Time `json:"startDate"`
+	Month int `json:"month"`
+	EndDate time.Time `json:"endDate"`
+	MaxAttendees int `json:"maxAttendees"`
+	SeatsAvailable int `json:"seatsAvailable"`
+}
+
+type ConferenceForm struct {
+	//ConferenceForm -- Conference outbound form message
+	Name string `json:"name"`
+	Description string `json:"description"`
+	OrganizerUserId string `json:"organizerUserId"`
+	Topics []string `json:"topics"`
+	City string `json:"city"`
+	StartDate string `json:"startDate"`
+	Month int `json:"month"`
+	MaxAttendees int `json:"maxAttendees,string,omitempty"`
+	SeatsAvailable int `json:"seatsAvailable"`
+	EndDate string `json:"endDate"`
+	WebsafeKey string `json:"websafeKey"`
+	OrganizerDisplayName string `json:"organizerDisplayName"`
 }
 
 type TeeShirtSize int
