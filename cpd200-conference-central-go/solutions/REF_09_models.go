@@ -11,6 +11,7 @@ type Profile struct {
 	DisplayName string	`json:"displayName"`
 	MainEmail string	`json:"mainEmail"`
 	TeeShirtSize string	`json:"teeShirtSize"`
+	ConferenceKeysToAttend []string	`json:"conferenceKeysToAttend"`
 }
 
 type ProfileMiniForm struct {
@@ -24,6 +25,7 @@ type ProfileForm struct {
 	DisplayName  string	`json:"displayName"`
 	MainEmail string	`json:"mainEmail"`
 	TeeShirtSize TeeShirtSize	`json:"teeShirtSize"`
+	ConferenceKeysToAttend []string	`json:"conferenceKeysToAttend"`
 }
 
 type StringMessage struct {
