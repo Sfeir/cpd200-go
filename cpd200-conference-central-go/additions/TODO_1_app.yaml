@@ -1,0 +1,10 @@
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: automatic
+  min_pending_latency: 30ms
+  max_pending_latency: automatic
+
+
+instance_class: B1
+manual_scaling:
+  instances: 1
