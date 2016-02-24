@@ -1,0 +1,50 @@
+application: your-project-id
+version: alpha-002
+runtime: go
+api_version: go1
+threadsafe: yes
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: automatic
+  min_pending_latency: 30ms
+  max_pending_latency: automatic
+
+handlers:       # static then dynamic
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /js
+  static_dir: static/js
+
+- url: /img
+  static_dir: static/img
+
+- url: /css
+  static_dir: static/bootstrap/css
+
+- url: /fonts
+  static_dir: static/fonts
+
+- url: /partials
+  static_dir: static/partials
+
+- url: /
+  static_files: templates/index.html
+  upload: templates/index\.html
+  secure: always
+
+- url: /tasks/send_confirmation_email
+  script: _go_app
+  #login: admin
+  secure: always
+
+- url: /crons/set_announcement
+  script: _go_app
+  #login: admin
+  secure: always
+
+- url: /_ah/spi/.*
+  script: _go_app
+  secure: always
