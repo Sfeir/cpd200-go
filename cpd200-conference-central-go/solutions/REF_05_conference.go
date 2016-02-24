@@ -96,6 +96,8 @@ func init() {
 		}
 		i := m.Info()
 		i.Name, i.HTTPMethod, i.Path, i.Desc = name, method, path, desc
+		i.Scopes = []string{endpoints.EmailScope}
+		i.ClientIds = []string{WEB_CLIENT_ID, endpoints.APIExplorerClientID}
 	}
 
 	register("GetProfile", "getProfile", "GET", "profile", "Get profile")
