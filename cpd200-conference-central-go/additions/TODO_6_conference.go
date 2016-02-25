@@ -2,7 +2,7 @@ func conferenceRegistration(websafeConferenceKey string, r *http.Request, reg bo
 	//Register or unregister user for selected conference.
 	var retval bool
 	appCtx := appengine.NewContext(r)
-	err := datastore.RunInTransaction(appCtx, func(appCtx appengine.Context) error {
+	err := datastore.RunInTransaction(appCtx, func(appCtx context.Context) error {
 		prof, profKey, err := getProfileFromUser(r) //get user Profile
 		if err != nil {
 			return err

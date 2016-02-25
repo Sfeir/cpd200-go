@@ -16,7 +16,7 @@ import (
 type ConferenceApi struct {
 }
 
-func copyProfileToForm(prof *Profile) (*ProfileForm, error) {
+func copyProfileToForm(r *http.Request, prof *Profile) (*ProfileForm, error) {
 	//Copy relevant fields from Profile to ProfileForm.
 	pf := &ProfileForm{
 			DisplayName: prof.DisplayName,
@@ -66,7 +66,7 @@ func doProfile(r *http.Request, saveRequest *ProfileMiniForm) (*ProfileForm, err
 	}
 	
 	//return ProfileForm
-	return copyProfileToForm(prof)
+	return copyProfileToForm(r, prof)
 }
 
 func (h *ConferenceApi) GetProfile(r *http.Request) (*ProfileForm, error) {

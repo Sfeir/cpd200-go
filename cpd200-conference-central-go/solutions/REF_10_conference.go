@@ -9,14 +9,16 @@ conference.go -- server-side Go App Engine API;
 
 import (
 	"log"
+	applog "google.golang.org/appengine/log"
 	"github.com/GoogleCloudPlatform/go-endpoints/endpoints"
 	"net/http"
-	"appengine"
-	"appengine/datastore"
+	"google.golang.org/appengine"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/datastore"
 	"time"
 	"html"
 	"strconv"
-	"appengine/memcache"
+	"google.golang.org/appengine/memcache"
 )
 
 type ConferenceApi struct {
@@ -159,7 +161,7 @@ func createConferenceObject(r *http.Request, cf *ConferenceForm) (*ConferenceFor
 	return cf, nil
 }
 
-func getQuery(appCtx appengine.Context, cqf *ConferenceQueryForms) (*datastore.Query, error) {
+func getQuery(appCtx context.Context, cqf *ConferenceQueryForms) (*datastore.Query, error) {
 	//Return formatted query from the submitted filters.
 	q := datastore.NewQuery("Conference")
 	inequalityFilter, filters, err := formatFilters(cqf.Filters)
@@ -300,14 +302,15 @@ func (h *ConferenceApi) CreateConference(r *http.Request, cf *ConferenceForm) (*
 	return createConferenceObject(r, cf)
 }
 
-func copyProfileToForm(prof *Profile) (*ProfileForm, error) {
+func copyProfileToForm(r *http.Request, prof *Profile) (*ProfileForm, error) {
 	//Copy relevant fields from Profile to ProfileForm.
 	pf := &ProfileForm{
 			DisplayName: prof.DisplayName,
 			MainEmail: prof.MainEmail,
 			TeeShirtSize: StringEnumToTeeShirtSize(prof.TeeShirtSize),
 	}
-	log.Printf("Did run copyProfileToForm()")
+	appCtx := appengine.NewContext(r)
+	applog.Debugf(appCtx, "Did run copyProfileToForm()")
 	return pf, nil
 }
 
@@ -367,7 +370,7 @@ func doProfile(r *http.Request, saveRequest *ProfileMiniForm) (*ProfileForm, err
 	}
 	
 	//return ProfileForm
-	return copyProfileToForm(prof)
+	return copyProfileToForm(r, prof)
 }
 
 func (h *ConferenceApi) GetProfile(r *http.Request) (*ProfileForm, error) {
@@ -436,7 +439,7 @@ func conferenceRegistration(websafeConferenceKey string, r *http.Request, reg bo
 	//Register or unregister user for selected conference.
 	var retval bool
 	appCtx := appengine.NewContext(r)
-	err := datastore.RunInTransaction(appCtx, func(appCtx appengine.Context) error {
+	err := datastore.RunInTransaction(appCtx, func(appCtx context.Context) error {
 		prof, profKey, err := getProfileFromUser(r) //get user Profile
 		if err != nil {
 			return err

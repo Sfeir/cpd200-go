@@ -9,21 +9,24 @@ conference.go -- server-side Go App Engine API;
 
 import (
 	"log"
+	applog "google.golang.org/appengine/log"
 	"github.com/GoogleCloudPlatform/go-endpoints/endpoints"
 	"net/http"
+	"google.golang.org/appengine"
 )
 
 type ConferenceApi struct {
 }
 
-func copyProfileToForm(prof *Profile) (*ProfileForm, error) {
+func copyProfileToForm(r *http.Request, prof *Profile) (*ProfileForm, error) {
 	//Copy relevant fields from Profile to ProfileForm.
 	pf := &ProfileForm{
 			DisplayName: prof.DisplayName,
 			MainEmail: prof.MainEmail,
 			TeeShirtSize: StringEnumToTeeShirtSize(prof.TeeShirtSize),
 	}
-	log.Printf("Did run copyProfileToForm()")
+	appCtx := appengine.NewContext(r)
+	applog.Debugf(appCtx, "Did run copyProfileToForm()")
 	return pf, nil
 }
 
@@ -67,7 +70,7 @@ func doProfile(r *http.Request, saveRequest *ProfileMiniForm) (*ProfileForm, err
 	}
 	
 	//return ProfileForm
-	return copyProfileToForm(prof)
+	return copyProfileToForm(r, prof)
 }
 
 func (h *ConferenceApi) GetProfile(r *http.Request) (*ProfileForm, error) {

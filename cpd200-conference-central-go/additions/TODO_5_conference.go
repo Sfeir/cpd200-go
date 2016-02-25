@@ -15,7 +15,7 @@ var FIELDS = map[string]string{
 }
 
 
-func getQuery(appCtx appengine.Context, cqf *ConferenceQueryForms) (*datastore.Query, error) {
+func getQuery(appCtx context.Context, cqf *ConferenceQueryForms) (*datastore.Query, error) {
 	//Return formatted query from the submitted filters.
 	q := datastore.NewQuery("Conference")
 	inequalityFilter, filters, err := formatFilters(cqf.Filters)
