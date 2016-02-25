@@ -35,7 +35,7 @@ func createConferenceObject(r *http.Request, cf *ConferenceForm) (*ConferenceFor
 	//preload necessary data items
 	c := endpoints.NewContext(r)
 	user, err := endpoints.CurrentUser(c, []string{endpoints.EmailScope},
-		[]string{WEB_CLIENT_ID}, []string{WEB_CLIENT_ID})
+		[]string{WEB_CLIENT_ID, endpoints.APIExplorerClientID}, []string{WEB_CLIENT_ID, endpoints.APIExplorerClientID})
 	if err != nil {
 		return nil, err
 	}

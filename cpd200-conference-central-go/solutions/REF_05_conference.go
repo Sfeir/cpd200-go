@@ -36,7 +36,7 @@ func getProfileFromUser(r *http.Request) (*Profile, error) {
 	//make sure user is authed
 	c := endpoints.NewContext(r)
 	user, err := endpoints.CurrentUser(c, []string{endpoints.EmailScope},
-		[]string{WEB_CLIENT_ID}, []string{WEB_CLIENT_ID})
+		[]string{WEB_CLIENT_ID, endpoints.APIExplorerClientID}, []string{WEB_CLIENT_ID, endpoints.APIExplorerClientID})
 	if err != nil {
 		return nil, err
 	}
