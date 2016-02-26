@@ -1,4 +1,4 @@
-var MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT_ANNOUNCEMENTS​"
+var MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT_ANNOUNCEMENTS"
 
 func cacheAnnouncement(r *http.Request) (string, error) {
 	//Create Announcement & assign to memcache; used by memcache cron job & putAnnouncement().
