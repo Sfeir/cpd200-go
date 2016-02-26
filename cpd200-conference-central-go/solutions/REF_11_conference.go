@@ -27,7 +27,7 @@ import (
 type ConferenceApi struct {
 }
 
-var MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT_ANNOUNCEMENTS"
+var MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT_ANNOUNCEMENTS​"
 
 type Object struct {
 	Value interface{}
